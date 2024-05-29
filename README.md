@@ -1,10 +1,16 @@
 # survey
 
-Sondage sur les grandes questions de notre temps liées à l'IA.
+**Sondage sur les grandes questions de notre temps liées à l'IA.**
 
 De quoi sont capables les modèles ? Quelle est la politique d'openAI ? Est-ce que la réglementation devrait être plus stricte ?
 
 Le but est de savoir comment les étudiants sont renseignés et s'emparent de ces sujets.
+
+Le sondage est séparé en deux parties:
+- une partie connaissances
+- une partie opinions
+
+Pour la partie connaissance, l'explication des réponses est dans le fichier `ANSWERS.md`. NE LISEZ PAS les réponses si vous n'avez pas passé le sondage et que vous comptez le faire.
 
 ## Lien des questions:
 
