@@ -22,8 +22,12 @@ Les versions à imprimer sont disponibles dans le dossier "print".
 
 ## Résultats
 
-Les résultats de différentes écoles seront bientôt compilés et disponibles.
-Pour ne pas le rater, mettez ce projet dans vos favoris github !
+Les résultats de Télécom Paris sont disponibles !
+Vous pouvez les voir dans `results`
+
+Les résultats d'autres écoles seront bientôt compilés et disponibles au même endroit.
+
+Pour ne pas rater les prochains résultats, mettez ce projet dans vos favoris github !
 
 
 ## Nous contacter
