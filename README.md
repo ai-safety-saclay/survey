@@ -10,7 +10,10 @@ Le sondage est séparé en deux parties:
 - une partie connaissances
 - une partie opinions
 
-Pour la partie connaissance, l'explication des réponses est dans le fichier `ANSWERS.md`. NE LISEZ PAS les réponses si vous n'avez pas passé le sondage et que vous comptez le faire.
+Pour la partie connaissance, l'**explication des réponses** est dans le fichier 
+--> `ANSWERS.md` <--
+
+NE LISEZ PAS les réponses si vous n'avez pas passé le sondage et que vous comptez le faire.
 
 ## Lien des questions:
 
