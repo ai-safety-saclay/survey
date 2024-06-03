@@ -118,7 +118,7 @@ with tag('html'):
         render_spacing()
 
         render_question(3)
-        pie_chart(data[10], "RLHF")
+        pie_chart(data[10], "RLHF", labels=["non", "oui"])
         render_spacing()
 
         render_question(4)
