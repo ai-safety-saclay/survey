@@ -48,12 +48,25 @@ def render_question(i):
         render_choices(q["choices"])
 
 
-def pie_chart(df, title, labels=None):
+def buckets(series: pd.Series | pd.DataFrame, count_na=True):
+    if count_na:
+        stats = series.value_counts(normalize=True, dropna=False).sort_index()
+        index = [x if pd.notna(x) else "sans réponse" for x in stats.index]
+        return index, stats.values
+    else:
+        stats = series.value_counts(normalize=True).sort_index()
+        return stats.index, stats.values
+
+
+# How do I rename a Nan in the index of a pandas series ?
+def pie_chart(series: pd.DataFrame| pd.Series, title, labels=None):
     fig, _ = plt.subplots()
-    count = df.value_counts().sort_index()/N
+    auto_labels, values = buckets(series)
     if labels==None:
-        labels = count.index
-    plt.pie(count.values, labels=labels, autopct=lambda x:f"{x:1.1f} %")
+        labels = auto_labels
+    else:
+        labels.append("sans réponse")
+    plt.pie(values, labels=labels, autopct=lambda x:f"{x:1.1f} %")
     plt.title(title)
     plt.close(fig)
     plot_to_img(fig)
@@ -78,7 +91,7 @@ with tag('html'):
 
         render_question(0)
         capabilities = ["Minecraft", "Olympiades", "meme", "musique"]
-        columns = data[[1,2,3,4]].fillna(0).astype(int)
+        columns = data[[1,2,3,4]].fillna(0).astype(float)
         values = columns.mean(axis=0)
         bar_chart(capabilities, values, 'Tâches résolues')
 
@@ -87,7 +100,7 @@ with tag('html'):
 
         render_question(2)
         labels = ["Taille / performances", "Refus", "Raisonnement", "Connaissances"]
-        columns = data[[6,7,8,9]].fillna(0).astype(int)
+        columns = data[[6,7,8,9]].fillna(0).astype(float)
         values = columns.mean(axis=0)
         bar_chart(labels, values, 'Compréhension des LLM')
 
@@ -96,26 +109,26 @@ with tag('html'):
 
         render_question(4)
         fig, ax = plt.subplots()
-        count = data[11].astype(float).value_counts().sort_index()/N
-        bar_chart(count.index, count.values, 'Timeline openAI')
+        index, values = buckets(data[11].astype(float), count_na=False)
+        bar_chart(index, values, 'Timeline openAI')
 
         render_question(5)
-        count = data[12].astype(float).value_counts().sort_index()/N
-        bar_chart(count.index, count.values, 'avis des Experts')
+        index, values = buckets(data[12].astype(float), count_na=False)
+        bar_chart(index, values, 'avis des Experts')
 
         render_question(6)
-        count = data[13].value_counts().sort_index()/N
-        bar_chart(count.index, count.values, 'Probablitité de catastrophe')
+        index, values = buckets(data[13], count_na=False)
+        bar_chart(index, values, 'Probablitité de catastrophe')
 
         render_question(7)
-        count = data[14].value_counts().sort_index()/N
-        bar_chart(count.index, count.values, 'Cyber')
-        count = data[15].value_counts().sort_index()/N
-        bar_chart(count.index, count.values, 'Crash')
-        count = data[16].value_counts().sort_index()/N
-        bar_chart(count.index, count.values, 'Perte contrôle')
-        count = data[17].value_counts().sort_index()/N
-        bar_chart(count.index, count.values, 'Automatisation')
+        index, values = buckets(data[14], count_na=False)
+        bar_chart(index, values, 'Cyber')
+        index, values = buckets(data[15], count_na=False)
+        bar_chart(index, values, 'Crash')
+        index, values = buckets(data[16], count_na=False)
+        bar_chart(index, values, 'Perte contrôle')
+        index, values = buckets(data[17], count_na=False)
+        bar_chart(index, values, 'Automatisation')
 
         render_question(8)
         pie_chart(data[18], "ChatGPT", labels=["non", "oui"])
