@@ -16,7 +16,7 @@ doc, tag, text = Doc().tagtext()
 
 def plot_to_img(fig):
     buf = BytesIO()
-    fig.savefig(buf, format="svg")
+    fig.savefig(buf, format="svg", transparent=True)
     svg_data = buf.getvalue().decode("utf-8")
     buf.close()
     doc.asis(svg_data)
