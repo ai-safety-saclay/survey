@@ -48,8 +48,23 @@ def render_question(i):
         render_choices(q["choices"])
 
 
-def pie(values, labels):
-    plt.pie(values, labels=labels, autopct=lambda x:f"{x:1.1f} %")
+def pie_chart(df, title, labels=None):
+    fig, _ = plt.subplots()
+    count = df.value_counts().sort_index()/N
+    if labels==None:
+        labels = count.index
+    plt.pie(count.values, labels=labels, autopct=lambda x:f"{x:1.1f} %")
+    plt.title(title)
+    plt.close(fig)
+    plot_to_img(fig)
+
+
+def bar_chart(labels, values, title):
+    fig, _ = plt.subplots()
+    plt.bar(labels, values)
+    plt.title(title)
+    plt.close(fig)
+    plot_to_img(fig)
 
 
 doc.asis('<!DOCTYPE html>')
@@ -62,183 +77,73 @@ with tag('html'):
             text('Sondage sûreté IA')
 
         render_question(0)
-        fig, ax = plt.subplots()
         capabilities = ["Minecraft", "Olympiades", "meme", "musique"]
         columns = data[[1,2,3,4]].fillna(0).astype(int)
         values = columns.mean(axis=0)
-        plt.bar(capabilities, values)
-        plt.title('Tâches résolues')
-        plt.close(fig)
-        plot_to_img(fig)
+        bar_chart(capabilities, values, 'Tâches résolues')
 
         render_question(1)
-        fig, ax = plt.subplots()
-        count = data[5].astype(float).value_counts().sort_index()/N
-        pie(count.values, labels=count.index)
-        plt.title('Elo de chatGPT')
-        plt.close(fig)
-        plot_to_img(fig)
+        pie_chart(data[5], 'Elo chatGPT')
 
         render_question(2)
-        fig, ax = plt.subplots()
         labels = ["Taille / performances", "Refus", "Raisonnement", "Connaissances"]
         columns = data[[6,7,8,9]].fillna(0).astype(int)
         values = columns.mean(axis=0)
-        plt.bar(labels, values)
-        plt.title('Compréhension des LLM')
-        plt.close(fig)
-        plot_to_img(fig)
+        bar_chart(labels, values, 'Compréhension des LLM')
 
         render_question(3)
-        fig, ax = plt.subplots()
-        count = data[10].value_counts().sort_index()/N
-        pie(count.values, labels=["non", "oui"])
-        plt.title('RLHF')
-        plt.close(fig)
-        plot_to_img(fig)
-
+        pie_chart(data[10], "RLHF")
 
         render_question(4)
         fig, ax = plt.subplots()
         count = data[11].astype(float).value_counts().sort_index()/N
-        plt.bar(count.index, count.values)
-        plt.title('Timeline openAI')
-        plt.close(fig)
-        plot_to_img(fig)
+        bar_chart(count.index, count.values, 'Timeline openAI')
 
         render_question(5)
-        fig, ax = plt.subplots()
         count = data[12].astype(float).value_counts().sort_index()/N
-        plt.bar(count.index, count.values)
-        plt.title('avis des Experts')
-        plt.close(fig)
-        plot_to_img(fig)
+        bar_chart(count.index, count.values, 'avis des Experts')
 
         render_question(6)
-        fig, ax = plt.subplots()
         count = data[13].value_counts().sort_index()/N
-        plt.bar(count.index, count.values)
-        plt.title('Risques')
-        plt.close(fig)
-        plot_to_img(fig)
-
+        bar_chart(count.index, count.values, 'Probablitité de catastrophe')
 
         render_question(7)
-        fig, ax = plt.subplots()
         count = data[14].value_counts().sort_index()/N
-        plt.bar(count.index, count.values)
-        plt.title('Cyber')
-        plt.close(fig)
-        plot_to_img(fig)
-
-        fig, ax = plt.subplots()
+        bar_chart(count.index, count.values, 'Cyber')
         count = data[15].value_counts().sort_index()/N
-        plt.bar(count.index, count.values)
-        plt.title('Crash')
-        plt.close(fig)
-        plot_to_img(fig)
-
-        fig, ax = plt.subplots()
+        bar_chart(count.index, count.values, 'Crash')
         count = data[16].value_counts().sort_index()/N
-        plt.bar(count.index, count.values)
-        plt.title('Perte contrôle')
-        plt.close(fig)
-        plot_to_img(fig)
-
-        fig, ax = plt.subplots()
+        bar_chart(count.index, count.values, 'Perte contrôle')
         count = data[17].value_counts().sort_index()/N
-        plt.bar(count.index, count.values)
-        plt.title('Automatisation')
-        plt.close(fig)
-        plot_to_img(fig)
+        bar_chart(count.index, count.values, 'Automatisation')
 
         render_question(8)
-        fig, ax = plt.subplots()
-        count = data[18].value_counts().sort_index()/N
-        pie(count.values, labels=["non", "oui"])
-        plt.title('ChatGPT')
-        plt.close(fig)
-        plot_to_img(fig)
+        pie_chart(data[18], "ChatGPT", labels=["non", "oui"])
 
         render_question(9)
-        fig, ax = plt.subplots()
-        count = data[19].value_counts().sort_index()/N
-        pie(count.values, labels=["non", "oui"])
-        plt.title('API GPT4')
-        plt.close(fig)
-        plot_to_img(fig)
+        pie_chart(data[19], "API Publique", labels=["non", "oui"])
 
         render_question(10)
-        fig, ax = plt.subplots()
-        count = data[20].value_counts().sort_index()/N
-        pie(count.values, labels=["non", "oui"])
-        plt.title('Sûreté IA juridique')
-        plt.close(fig)
-        plot_to_img(fig)
+        pie_chart(data[20], "Sûreté IA Juridique", labels=["non", "oui"])
 
         render_question(11)
-        fig, ax = plt.subplots()
-        count = data[21].value_counts().sort_index()/N
-        pie(count.values, labels=["non", "oui"])
-        plt.title('Sûreté IA recherche')
-        plt.close(fig)
-        plot_to_img(fig)
+        pie_chart(data[21], "Sûreté IA recherche", labels=["non", "oui"])
 
         render_question(12)
-        fig, ax = plt.subplots()
-        count = data[22].value_counts().sort_index()/N
-        pie(count.values, labels=["non", "oui"])
-        plt.title('ralentir création')
-        plt.close(fig)
-        plot_to_img(fig)
+        pie_chart(data[22], "Ralentir création", labels=["non", "oui"])
 
         render_question(13)
-        fig, ax = plt.subplots()
-        count = data[23].value_counts().sort_index()/N
-        pie(count.values, labels=["non", "oui"])
-        plt.title('ralentir déploiement')
-        plt.close(fig)
-        plot_to_img(fig)
-
+        pie_chart(data[23], "Ralentir déploiement", labels=["non", "oui"])
 
         render_question(14)
-        fig, ax = plt.subplots()
-        count = data[24].value_counts().sort_index()/N
-        pie(count.values, labels=["non", "oui"])
-        plt.title('EU AI Act')
-        plt.close(fig)
-        plot_to_img(fig)
-
-        fig, ax = plt.subplots()
-        count = data[25].value_counts().sort_index()/N
-        pie(count.values, labels=["non", "oui"])
-        plt.title('Séoul')
-        plt.close(fig)
-        plot_to_img(fig)
-        
-        fig, ax = plt.subplots()
-        count = data[26].value_counts().sort_index()/N
-        pie(count.values, labels=["non", "oui"])
-        plt.title('PauseAI')
-        plt.close(fig)
-        plot_to_img(fig)
-
-        fig, ax = plt.subplots()
-        count = data[27].value_counts().sort_index()/N
-        pie(count.values, labels=["non", "oui"])
-        plt.title('CeSIA')
-        plt.close(fig)
-        plot_to_img(fig)
+        pie_chart(data[24], "EU AI Act", labels=["non", "oui"])
+        pie_chart(data[25], "Séoul", labels=["non", "oui"])
+        pie_chart(data[26], "PauseAI", labels=["non", "oui"])
+        pie_chart(data[27], "CeSIA", labels=["non", "oui"])
 
         render_question(15)
-        fig, ax = plt.subplots()
-        count = data[28].value_counts().sort_index()/N
-        pie(count.values, labels=["non", "oui"])
-        plt.title('Cours')
-        plt.close(fig)
-        plot_to_img(fig)
+        pie_chart(data[28], "Cours", labels=["non", "oui"])
 
 with open("index.html", "w") as file:
     html_content = doc.getvalue()
     file.write(html_content)
-
