@@ -20,7 +20,7 @@ jobs:
 
       - name: Copy generated site
         run: |
-          mkdir /public
+          mkdir public
           cp index.html public/
 
       - name: Build pages
