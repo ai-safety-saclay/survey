@@ -1,5 +1,6 @@
 Les premières réponses du sondage sont dès à présent disponibles !
- <https://ai-safety-saclay.github.io/survey/>  
+
+➡️  <https://ai-safety-saclay.github.io/survey/> ⬅️
 
 ## Qu'est-ce que c'est ?
 
