@@ -19,7 +19,7 @@ jobs:
         run: python3 site.py
 
       - name: Copy generated site
-      - run: |
+        run: |
           mkdir /public
           cp index.html public/
 

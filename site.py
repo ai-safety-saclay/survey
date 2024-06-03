@@ -2,7 +2,6 @@ from yattag import Doc
 import matplotlib.pyplot as plt
 from io import BytesIO
 import pandas as pd
-import numpy as np
 import yaml
 
 with open("questions/v1.yml") as file:
