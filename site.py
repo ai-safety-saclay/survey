@@ -21,6 +21,9 @@ def plot_to_img(fig):
     buf.close()
     doc.asis(svg_data)
 
+def render_spacing():
+    with tag("hr"):
+        pass
 
 def render_choices(choices):
     with tag("ul", style="list-style: none"):
@@ -30,10 +33,10 @@ def render_choices(choices):
                     pass
                 text(c)
 
-# How can I prevent a html checkbox to be checked ?
+
 def render_question(i):
     q = questions[i]
-    with tag("h3"):
+    with tag("h2"):
         text(q["question"])
 
     if "subquestions" in q:
@@ -42,7 +45,6 @@ def render_question(i):
                 with tag("li"):
                     with tag("h4"):
                         text(s)
-                render_choices(q["choices"])
 
     else:
         render_choices(q["choices"])
@@ -84,41 +86,56 @@ doc.asis('<!DOCTYPE html>')
 with tag('html'):
     with tag('head'):
         with tag('title'):
-            text('Survey Results')
+            text('Sondage sûreté IA')
+        with tag("link", href="./style.css", type="text/css", rel="stylesheet"):
+            pass
+
+
     with tag('body'):
         with tag('h1'):
             text('Sondage sûreté IA')
+        with tag("div", klass="intro"):
+            text("En mai 2024, nous avons fait passé aux étudiants de Télécom Paris un sondage sur la sûreté de l'IA, et en voici les résultats.")
+        with tag("a", href="https://github.com/ai-safety-saclay/survey"):
+            text("plus d'information")
 
         render_question(0)
         capabilities = ["Minecraft", "Olympiades", "meme", "musique"]
         columns = data[[1,2,3,4]].fillna(0).astype(float)
         values = columns.mean(axis=0)
         bar_chart(capabilities, values, 'Tâches résolues')
+        render_spacing()
 
         render_question(1)
         pie_chart(data[5], 'Elo chatGPT')
+        render_spacing()
 
         render_question(2)
         labels = ["Taille / performances", "Refus", "Raisonnement", "Connaissances"]
         columns = data[[6,7,8,9]].fillna(0).astype(float)
         values = columns.mean(axis=0)
         bar_chart(labels, values, 'Compréhension des LLM')
+        render_spacing()
 
         render_question(3)
         pie_chart(data[10], "RLHF")
+        render_spacing()
 
         render_question(4)
         fig, ax = plt.subplots()
         index, values = buckets(data[11].astype(float), count_na=False)
         bar_chart(index, values, 'Timeline openAI')
+        render_spacing()
 
         render_question(5)
         index, values = buckets(data[12].astype(float), count_na=False)
         bar_chart(index, values, 'avis des Experts')
+        render_spacing()
 
         render_question(6)
         index, values = buckets(data[13], count_na=False)
         bar_chart(index, values, 'Probablitité de catastrophe')
+        render_spacing()
 
         render_question(7)
         index, values = buckets(data[14], count_na=False)
@@ -129,33 +146,38 @@ with tag('html'):
         bar_chart(index, values, 'Perte contrôle')
         index, values = buckets(data[17], count_na=False)
         bar_chart(index, values, 'Automatisation')
+        render_spacing()
 
         render_question(8)
         pie_chart(data[18], "ChatGPT", labels=["non", "oui"])
+        render_spacing()
 
         render_question(9)
         pie_chart(data[19], "API Publique", labels=["non", "oui"])
+        render_spacing()
 
         render_question(10)
-        pie_chart(data[20], "Sûreté IA Juridique", labels=["non", "oui"])
-
         render_question(11)
+        pie_chart(data[20], "Sûreté IA Juridique", labels=["non", "oui"])
         pie_chart(data[21], "Sûreté IA recherche", labels=["non", "oui"])
+        render_spacing()
 
         render_question(12)
-        pie_chart(data[22], "Ralentir création", labels=["non", "oui"])
-
         render_question(13)
+        pie_chart(data[22], "Ralentir création", labels=["non", "oui"])
         pie_chart(data[23], "Ralentir déploiement", labels=["non", "oui"])
+        render_spacing()
 
         render_question(14)
         pie_chart(data[24], "EU AI Act", labels=["non", "oui"])
         pie_chart(data[25], "Séoul", labels=["non", "oui"])
         pie_chart(data[26], "PauseAI", labels=["non", "oui"])
         pie_chart(data[27], "CeSIA", labels=["non", "oui"])
+        render_spacing()
 
         render_question(15)
         pie_chart(data[28], "Cours", labels=["non", "oui"])
+        render_spacing()
 
 with open("index.html", "w") as file:
     html_content = doc.getvalue()
