@@ -1,0 +1,30 @@
+name: Build website
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build website
+        run: python3 site.py
+
+      - name: Copy generated site
+      - run: |
+          mkdir /public
+          cp index.html public/
+
+      - name: Deploy to GitHub Pages
+        uses: gh-pages-deploy@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: public
