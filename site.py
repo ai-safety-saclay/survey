@@ -25,12 +25,16 @@ def render_spacing():
     with tag("hr"):
         pass
 
-def render_choices(choices):
+def render_choices(choices, expected_answers=None):
     with tag("ul", style="list-style: none"):
-        for c in choices:
+        for i, c in enumerate(choices):
             with tag("li"):
-                with tag("input", type="checkbox", disabled=True):
-                    pass
+                if expected_answers and expected_answers[i]:
+                    with tag("input", type="checkbox", checked=True, disabled=True):
+                        pass
+                else:
+                    with tag("input", type="checkbox", disabled=True):
+                        pass
                 text(c)
 
 
@@ -47,7 +51,7 @@ def render_question(i):
                         text(s)
 
     else:
-        render_choices(q["choices"])
+        render_choices(q["choices"], q.get("expected"))
 
 
 def buckets(series: pd.Series | pd.DataFrame, count_na=True):
@@ -95,7 +99,10 @@ with tag('html'):
         with tag('h1'):
             text('Sondage sûreté IA')
         with tag("div", klass="intro"):
-            text("En mai 2024, nous avons fait passé aux étudiants de Télécom Paris un sondage sur la sûreté de l'IA, et en voici les résultats.")
+            with tag("p"):
+                text("En mai 2024, nous avons fait passé aux étudiants de Télécom Paris un sondage sur la sûreté de l'IA, et en voici les résultats.")
+            with tag("p"):
+                text("Pour les questions de connaissance où une bonne réponse était attendue, la (ou les) bonnes réponses sont indiquées en gris.")
         with tag("a", href="https://github.com/ai-safety-saclay/survey"):
             text("plus d'information")
 

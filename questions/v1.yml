@@ -4,6 +4,7 @@
     - Résoudre des problèmes des Olympiades Internationales de Mathématiques
     - Décrire et interpréter un meme
     - Identifier l'émotion principale d'une musique
+  expected: [true, true, true, true]
 
 - question: GPT3.5, dont l'architecture permet uniquement de prédire le mot suivant dans un texte, a été entraîné sur des jeux de données de parties d'échecs après son entraînement principal. Quel est son score Elo évalué?
   choices:
@@ -11,6 +12,7 @@
     - 1500 (niveau moyen en club)
     - 1800 (bon niveau en club)
     - 2200 (joueur en tournoni, niveau national)
+  expected: [false, false, true, false]
 
 - question: Parmi ces aspects des LLM, pour lesquels les chercheurs ont une bonne compréhension basée sur des fondements théoriques, et qui permet de prédire des comportements?
   choices:
@@ -18,6 +20,7 @@
     - les comportements de refus de réponse
     - la capacité à effectuer un raisonnement logique
     - comment sont stockées les connaissances factuelles
+  expected: [false, true, false, false]
 
 - question: Seriez-vous capable d'expliquer ce qu'est le RLHF?
   choices:
@@ -32,6 +35,7 @@
     - 20 ans
     - 30 ans
     - 50 ans
+  expected: [false, true, false, false, false, false]
 
 - question: D'après le dernier sondage parmi les chercheurs en IA (2800 chercheurs, janvier 2024), quelle proportion des chercheurs pensent qu'un scénario catastrophe peut arriver à cause d'une IA incontrôlable?
   choices:
@@ -46,6 +50,7 @@
     - 85%
     - 90%
     - 95%
+  expected: [false, false, false, false, false, true, false, false, false, false, false]
 
 - question: Selon vous, quel est le risque d'une catastrophe causée par l'IA comparable à la seconde guerre mondiale ou à une pandémie dévastatrice dans les 10 prochaines années?
   choices:
