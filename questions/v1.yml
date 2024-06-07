@@ -37,7 +37,7 @@
     - 50 ans
   expected: [false, true, false, false, false, false]
 
-- question: D'après le dernier sondage parmi les chercheurs en IA (2800 chercheurs, janvier 2024), quelle proportion des chercheurs pensent qu'un scénario catastrophe peut arriver à cause d'une IA incontrôlable?
+- question: D'après le dernier sondage parmi les chercheurs en IA (2800 chercheurs, janvier 2024), quelle proportion des chercheurs pensent qu'un scénario catastrophe peut arriver à cause d'une IA incontrôlable? Spécifiquement, la question était "je pense que la probabilité d'un scénario qui cause l'extinction de l'espece humaine ou conséquence similaire est supérieure à 1/10"
   choices:
     - 5%
     - 10%

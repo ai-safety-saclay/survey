@@ -145,13 +145,13 @@ with tag('html'):
         render_spacing()
 
         render_question(7)
-        index, values = buckets(data[14], count_na=False)
+        index, values = buckets(data[14].astype(float), count_na=False)
         bar_chart(index, values, 'Cyber')
-        index, values = buckets(data[15], count_na=False)
+        index, values = buckets(data[15].astype(float), count_na=False)
         bar_chart(index, values, 'Crash')
-        index, values = buckets(data[16], count_na=False)
+        index, values = buckets(data[16].astype(float), count_na=False)
         bar_chart(index, values, 'Perte contrôle')
-        index, values = buckets(data[17], count_na=False)
+        index, values = buckets(data[17].astype(float), count_na=False)
         bar_chart(index, values, 'Automatisation')
         render_spacing()
 
